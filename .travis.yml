@@ -1,0 +1,21 @@
+language: go
+
+go:
+- master
+
+install:
+- GO111MODULE=on go get github.com/gohugoio/hugo
+
+script:
+- hugo
+- echo 'yeya24.github.io' > public/CNAME # declare CNAME
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  repo: yeya24/yeya24.github.io
+  target-branch: master
+  github_token: $GH_TOKEN
+  local_dir: public
+  on:
+    branch: master
