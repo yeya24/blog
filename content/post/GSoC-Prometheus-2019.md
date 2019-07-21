@@ -71,9 +71,9 @@ Prombench 是18年的 GSoC 项目，包括了 Prometheus 的工作流中一整�
 # Linkerd2
 Linkerd2 是一种 ServiceMesh，项目原生就提供了狂拽酷炫吊炸天的 Prometheus 和 Grafana 集成。
 
-![linkerd-web](img/gsoc-2019/linkerd-web.png)
+![linkerd-web](/img/gsoc-2019/linkerd-web.png)
 
-![linkerd-Grafana](img/gsoc-2019/linkerd-grafana.png)
+![linkerd-Grafana](/img/gsoc-2019/linkerd-grafana.png)
 
 ## Alertmanager Integration
 - 导师: Thomas Rampelberg (@grampelberg)
