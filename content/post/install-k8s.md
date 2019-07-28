@@ -1,5 +1,5 @@
 ---
-title: "使用kubeadm安装k8s"
+title: "使用kubeadm安装k8s 1.15.0"
 date: 2019-04-06T16:15:35+08:00
 draft: false
 description: ""
