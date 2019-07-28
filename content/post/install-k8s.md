@@ -71,7 +71,7 @@ curl -s https://zhangguanzhang.github.io/bash/pull.sh | bash -s -- $1
 接下来如果是master节点，创建一个install-master.sh脚本并运行
 ``` bash
 #!/bin/sh
-version=1.13.2
+version=1.15.0
 yum install -y kubelet-$version
 yum install -y kubectl-$version kubeadm-$version 
 systemctl enable kubelet
@@ -82,7 +82,7 @@ apiVersion: kubeadm.k8s.io/v1beta1
 kind: ClusterConfiguration
 networking:
   podSubnet: "192.168.0.0/16"
-kubernetesVersion: "v1.13.2"
+kubernetesVersion: "v1.15.0"
 EOF
 
 ~/image.sh k8s.gcr.io/kube-controller-manager:v$version
@@ -90,18 +90,31 @@ EOF
 ~/image.sh k8s.gcr.io/kube-apiserver:v$version
 ~/image.sh k8s.gcr.io/kube-scheduler:v$version
 ~/image.sh k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.1
-~/image.sh k8s.gcr.io/coredns:1.2.6
-~/image.sh k8s.gcr.io/etcd:3.2.24
+~/image.sh k8s.gcr.io/coredns:1.3.1
+~/image.sh k8s.gcr.io/etcd:3.3.10
 ~/image.sh k8s.gcr.io/pause:3.1
 docker pull calico/node:v3.6.0
 docker pull calico/cni:v3.6.0
 docker pull calico/kube-controllers:v3.6.0
 ```
 
+这里有一个地方需要注意一下，如果创建的机器在公有云上，我们需要添加上公有云的lb ip，这样本地的kubectl才能够访问，这个时候可以在kubeadm.conf的配置文件中进行如下的修改
+
+``` yaml
+apiVersion: kubeadm.k8s.io/v1beta1
+kind: ClusterConfiguration
+apiServer:
+  certSANs:
+  - 这里填写你需要暴露的公网ip地址
+networking:
+  podSubnet: "192.168.0.0/16"
+kubernetesVersion: "v1.15.0"
+```
+
 如果是node，创建一个install-node.sh脚本并运行
 ``` bash
 #!/bin/sh
-version=1.13.2
+version=1.15.0
 yum install -y kubelet-$version
 yum install -y kubeadm-$version 
 systemctl enable kubelet
@@ -109,11 +122,11 @@ systemctl restart kubelet
 
 ~/image.sh k8s.gcr.io/kube-proxy:v$version
 ~/image.sh k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.1
-~/image.sh k8s.gcr.io/coredns:1.2.6
+~/image.sh k8s.gcr.io/coredns:1.3.1
 ~/image.sh k8s.gcr.io/pause:3.1
-docker pull calico/node:v3.6.0
-docker pull calico/cni:v3.6.0
-docker pull calico/kube-controllers:v3.6.0
+docker pull calico/node:v3.6.4
+docker pull calico/cni:v3.6.4
+docker pull calico/kube-controllers:v3.6.4
 ```
 
 等待每个节点上面的脚本都执行完成之后，在master节点上运行下面的命令正式开始安装
@@ -145,7 +158,7 @@ kubectl apply -f calico.yaml
 可以通过kubectl get nodes 查看状态，一般来说出现下面的状态就是都ok了，如果不ok，一般来说可能是网络插件还没启动或者运行出错。
 ``` bash
 NAME     STATUS   ROLES    AGE     VERSION
-k8s-m1   Ready    master   4d23h   v1.13.2
-k8s-m2   Ready    <none>   4d23h   v1.13.2
-k8s-m3   Ready    <none>   4d23h   v1.13.2
+k8s-m1   Ready    master   4d23h   v1.15.0
+k8s-m2   Ready    <none>   4d23h   v1.15.0
+k8s-m3   Ready    <none>   4d23h   v1.15.0
 ```
