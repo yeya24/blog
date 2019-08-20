@@ -98,7 +98,7 @@ docker pull calico/cni:v3.6.0
 docker pull calico/kube-controllers:v3.6.0
 ```
 
-这里有一个地方需要注意一下，如果创建的机器在公有云上，我们需要添加上公有云的lb ip，这样本地的kubectl才能够访问，这个时候可以在kubeadm.conf的配置文件中进行如下的修改
+这里有一个地方需要注意一下，如果创建的机器在公有云上，我们需要添加上公有云机器的弹性公网ip，这样本地的kubectl就可以修改kubeconfig访问到公有云master节点的6443端口，这个时候可以在kubeadm.conf的配置文件中进行如下的修改
 
 ``` yaml
 apiVersion: kubeadm.k8s.io/v1beta1
