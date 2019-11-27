@@ -93,9 +93,10 @@ EOF
 ~/image.sh k8s.gcr.io/coredns:1.6.2
 ~/image.sh k8s.gcr.io/etcd:3.3.15-0
 ~/image.sh k8s.gcr.io/pause:3.1
-docker pull calico/node:v3.6.5
-docker pull calico/cni:v3.6.5
-docker pull calico/kube-controllers:v3.6.5
+docker pull calico/node:v3.10.1
+docker pull calico/cni:v3.10.1
+docker pull calico/kube-controllers:v3.10.1
+docker pull calico/pod2daemon-flexvol:v3.10.1
 ```
 
 这里有一个地方需要注意一下，如果创建的机器在公有云上，我们需要添加上公有云机器的弹性公网ip，这样本地的kubectl就可以修改kubeconfig访问到公有云master节点的6443端口，这个时候可以在kubeadm.conf的配置文件中进行如下的修改
@@ -124,9 +125,10 @@ systemctl restart kubelet
 ~/image.sh k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.1
 ~/image.sh k8s.gcr.io/coredns:1.6.2
 ~/image.sh k8s.gcr.io/pause:3.1
-docker pull calico/node:v3.6.5
-docker pull calico/cni:v3.6.5
-docker pull calico/kube-controllers:v3.6.5
+docker pull calico/node:v3.10.1
+docker pull calico/cni:v3.10.1
+docker pull calico/kube-controllers:v3.10.1
+docker pull calico/pod2daemon-flexvol:v3.10.1
 ```
 
 等待每个节点上面的脚本都执行完成之后，在master节点上运行下面的命令正式开始安装
@@ -151,7 +153,7 @@ kubeadm join 10.14.10.139:6443 --token zxqopw.kkoe6hduf6113pmn --discovery-token
 ``` bash
 kubectl taint node k8s-m1 node-role.kubernetes.io/master- # 这一步是去除master上面的污点，这个地方要注意，将我前面的 k8s-m1 换成你那边对应的master节点的名称，实际情况下这步可以不用执行，非必须。
 
-wget https://docs.projectcalico.org/v3.6/getting-started/kubernetes/installation/hosted/kubernetes-datastore/calico-networking/1.7/calico.yaml
+wget https://docs.projectcalico.org/v3.10/manifests/calico.yaml
 kubectl apply -f calico.yaml
 ```
 
