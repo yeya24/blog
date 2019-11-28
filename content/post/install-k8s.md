@@ -11,13 +11,15 @@ categories:
 至少使用2台节点，当然最好3台，每台资源达到4核8G，所使用的环境在Centos 7.5版本及以上
 
 事先准备：给每台节点改主机名称，在k8s中需要每一台机器有一个独特的主机名，在centos里面使用hostnamectl这个工具来更改
-``` bash
+
+```
 hostnamectl set-hostname xxx
 reboot -n # 这一步是重启
 ```
 
 安装docker，安装完成之后自行检查docker ps 或者docker run检查安装情况
-``` bash
+
+```
 yum update -y
 yum install -y yum-utils
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
@@ -28,6 +30,7 @@ systemctl restart docker
 ```
 
 在每台机器上运行下面的一个脚本，具体方法是创建一个setting.sh文件 chmod +x setting.sh  将脚本的内容复制进去，后运行脚本即可
+
 ```
 #!/bin/sh
 # 关闭防火墙
@@ -63,13 +66,15 @@ sysctl -p /etc/sysctl.d/k8s.conf
 ```
 
 每台机器执行完上面的脚本之后，再创建一个脚本 image.sh，将以下内容复制进去，之后 chmod +x image.sh这个脚本以后可以用来拉取镜像
-``` bash
+
+```
 #!/bin/sh
 curl -s https://zhangguanzhang.github.io/bash/pull.sh | bash -s -- $1
 ```
 
 接下来如果是master节点，创建一个install-master.sh脚本并运行
-``` bash
+
+```
 #!/bin/sh
 version=1.16.3
 yum install -y kubelet-$version
@@ -101,7 +106,7 @@ docker pull calico/pod2daemon-flexvol:v3.10.1
 
 这里有一个地方需要注意一下，如果创建的机器在公有云上，我们需要添加上公有云机器的弹性公网ip，这样本地的kubectl就可以修改kubeconfig访问到公有云master节点的6443端口，这个时候可以在kubeadm.conf的配置文件中进行如下的修改
 
-``` yaml
+```
 apiVersion: kubeadm.k8s.io/v1beta1
 kind: ClusterConfiguration
 apiServer:
@@ -113,7 +118,8 @@ kubernetesVersion: "v1.16.3"
 ```
 
 如果是node，创建一个install-node.sh脚本并运行
-``` bash
+
+```
 #!/bin/sh
 version=1.16.3
 yum install -y kubelet-$version
@@ -132,12 +138,14 @@ docker pull calico/pod2daemon-flexvol:v3.10.1
 ```
 
 等待每个节点上面的脚本都执行完成之后，在master节点上运行下面的命令正式开始安装
-``` bash
+
+```
 kubeadm init --config kubeadm.conf
 ```
 
 当出现运行成功的字样之后，执行命令
-``` bash
+
+```
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
@@ -145,12 +153,14 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 然后在node节点上面执行安装完成后跳出来的命令
 以下面的这行命令为例，在master节点上安装完成之后下面会显示出类似的这么一条命令，你只要复制下来在node节点上运行一下即可（下面的只是个示例）
-``` bash
+
+```
 kubeadm join 10.14.10.139:6443 --token zxqopw.kkoe6hduf6113pmn --discovery-token-ca-cert-hash sha256:42de13e61ba1d1647b4f9b21fcf05964b826f84df0db41f87c0b66fb48bb2d32
 ```
 
 最后的步骤是安装calico，calico是我这边选择的网络组件，下面的命令都在master上面执行
-``` bash
+
+```
 kubectl taint node k8s-m1 node-role.kubernetes.io/master- # 这一步是去除master上面的污点，这个地方要注意，将我前面的 k8s-m1 换成你那边对应的master节点的名称，实际情况下这步可以不用执行，非必须。
 
 wget https://docs.projectcalico.org/v3.10/manifests/calico.yaml
@@ -158,7 +168,8 @@ kubectl apply -f calico.yaml
 ```
 
 可以通过kubectl get nodes 查看状态，一般来说出现下面的状态就是都ok了，如果不ok，一般来说可能是网络插件还没启动或者运行出错。
-``` bash
+
+```
 NAME     STATUS   ROLES    AGE     VERSION
 k8s-m1   Ready    master   4d23h   v1.16.3
 k8s-m2   Ready    <none>   4d23h   v1.16.3
