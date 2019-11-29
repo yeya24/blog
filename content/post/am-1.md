@@ -336,7 +336,6 @@ func (n *SilenceStage) Exec(ctx context.Context, l log.Logger, alerts ...*types.
 
 	return ctx, filtered, nil
 }
-
 ```
 
 首先遍历所有的alerts，根据每条告警，查询silences的store中是否有目前状态是active（即没有过期的），且labels与该告警匹配的silence，如果有，那么通过marker的SetSilenced方法将指定labels的告警设置为silenced状态。方法的关键就在于silences的查询过程，那就看看silences.Query这个方法
@@ -406,7 +405,8 @@ func (s *Silences) query(q *query, now time.Time) ([]*pb.Silence, error) {
 ```
 
 这两个方法比较长，silences.Query这个方法实际调用的是query方法，所以我们直接看query方法。query方法中，首先看参数的query里面有没有带上id限制，如果有指定id，就从s.st这个保存了当前所有silence的map找出指定id的silence。如果没有指定，则将map里面的所有silence加入res这个切片中，在这个方法中肯定是没有指定id，所以会先得到所有的silence。之后对res这个切片进行遍历，执行filter进行过滤。所谓的过滤即是比较之前调用Query时候指定的两个参数：状态为active，且能匹配上警报的标签。通过filter过滤，如果不满足，则remove标志为true，并break退出；如果一直都满足，则将这个silence对象加入到resf这个切片中，返回回去。可以看出，在上述silence的查询过程中，是有可能出现多个AM实例中silence状态不同的情况的，可能会出现数据一致性问题。
-``` go
+
+```
 sils, err := n.silences.Query(
 			silence.QState(types.SilenceStateActive),
 			silence.QMatches(a.Labels),
