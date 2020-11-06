@@ -12,8 +12,8 @@ script:
 deploy:
   provider: pages
   skip_cleanup: true
-  repo: yeya24/yeya24.github.io
-  target-branch: master
+  repo: yeya24/blog
+  target-branch: gh-pages
   github_token: $GH_TOKEN
   local_dir: public
   on:
