@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on 朝花夕拾</title>
+    <link>http://yeya24.github.io/post/</link>
+    <description>Recent content in Posts on 朝花夕拾</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 06 Nov 2020 15:24:27 -0500</lastBuildDate><atom:link href="http://yeya24.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Conprof: Like Prometheus, but for profiles</title>
+      <link>http://yeya24.github.io/post/conprof/</link>
+      <pubDate>Fri, 06 Nov 2020 15:24:27 -0500</pubDate>
+      
+      <guid>http://yeya24.github.io/post/conprof/</guid>
+      <description>Conprof 是一个对应用程序进行持续 profilling 的系统，它基于https://research.google/pubs/pub36575/。Conprof 目前已</description>
+    </item>
+    
+    <item>
+      <title>使用kubeadm安装k8s 1.16.3</title>
+      <link>http://yeya24.github.io/post/install-k8s/</link>
+      <pubDate>Sat, 06 Apr 2019 16:15:35 +0800</pubDate>
+      
+      <guid>http://yeya24.github.io/post/install-k8s/</guid>
+      <description>至少使用2台节点，当然最好3台，每台资源达到4核8G，所使用的环境在Centos 7.5版本及以上 事先准备：给每台节点改主机名称，在k8s中需</description>
+    </item>
+    
+    <item>
+      <title>使用kind来快速部署k8s环境</title>
+      <link>http://yeya24.github.io/post/kind/</link>
+      <pubDate>Fri, 05 Apr 2019 10:23:15 +0800</pubDate>
+      
+      <guid>http://yeya24.github.io/post/kind/</guid>
+      <description>啥是kind kind 即 Kubernetes In Docker，顾名思义，就是将 k8s 所需要的所有组件，全部部署在一个docker容器中，是一套开箱即用的 k8s 环境搭建方案。使用</description>
+    </item>
+    
+    <item>
+      <title>GSoC 2019中的Prometheus相关项目介绍</title>
+      <link>http://yeya24.github.io/post/gsoc-prometheus-2019/</link>
+      <pubDate>Sun, 03 Mar 2019 13:34:50 +0800</pubDate>
+      
+      <guid>http://yeya24.github.io/post/gsoc-prometheus-2019/</guid>
+      <description>中国时间3月1号凌晨，cncf 公布了2019年 GSoC 项目的 idea，具体的Github地址在 cncf/soc。 简单看了一下里面的一些项目，在 k8s 的</description>
+    </item>
+    
+    <item>
+      <title>influxdb的高可用方案</title>
+      <link>http://yeya24.github.io/post/influxdb_ha/</link>
+      <pubDate>Sat, 02 Mar 2019 22:32:12 +0800</pubDate>
+      
+      <guid>http://yeya24.github.io/post/influxdb_ha/</guid>
+      <description>由于目前influxdb本身的集群方案属于闭源状态，而本身的influxdb并不支持集群。在目前的社区中出现的方案主要有两种： influxdb-relay 这是官方提供</description>
+    </item>
+    
+    <item>
+      <title>P4语言介绍</title>
+      <link>http://yeya24.github.io/post/p4/</link>
+      <pubDate>Mon, 25 Feb 2019 10:24:05 +0800</pubDate>
+      
+      <guid>http://yeya24.github.io/post/p4/</guid>
+      <description>前言：这篇文章参考自SDNLAB上zenhox的P4编程理论与实践——理论篇，以及杨泽卫、李呈老师的&amp;laquo;重构网络与SDN&amp;raqu</description>
+    </item>
+    
+    <item>
+      <title>Alertmanager的告警流程分析（一）</title>
+      <link>http://yeya24.github.io/post/am-1/</link>
+      <pubDate>Sun, 24 Feb 2019 15:05:50 +0800</pubDate>
+      
+      <guid>http://yeya24.github.io/post/am-1/</guid>
+      <description>这篇文章会从一些源代码的角度来分析alertmanager告警的这个流程，基于版本0.16.1。由于本人水平有限，分析可能有一些不到位的地方</description>
+    </item>
+    
+    <item>
+      <title>Iptables学习与记录</title>
+      <link>http://yeya24.github.io/post/iptables-study/</link>
+      <pubDate>Sun, 11 Nov 2018 16:30:03 +0800</pubDate>
+      
+      <guid>http://yeya24.github.io/post/iptables-study/</guid>
+      <description>iptables学习与记录 列出表中的规则 iptables -L 等同于 iptables &amp;ndash;list 列出指定table的所有规则，如果不使用-t 参数指定对应的表，则默认为filter表，</description>
+    </item>
+    
+  </channel>
+</rss>

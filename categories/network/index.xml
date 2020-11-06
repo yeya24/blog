@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Network on 朝花夕拾</title>
+    <link>http://yeya24.github.io/categories/network/</link>
+    <description>Recent content in Network on 朝花夕拾</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 25 Feb 2019 10:24:05 +0800</lastBuildDate><atom:link href="http://yeya24.github.io/categories/network/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>P4语言介绍</title>
+      <link>http://yeya24.github.io/post/p4/</link>
+      <pubDate>Mon, 25 Feb 2019 10:24:05 +0800</pubDate>
+      
+      <guid>http://yeya24.github.io/post/p4/</guid>
+      <description>前言：这篇文章参考自SDNLAB上zenhox的P4编程理论与实践——理论篇，以及杨泽卫、李呈老师的&amp;laquo;重构网络与SDN&amp;raqu</description>
+    </item>
+    
+    <item>
+      <title>Iptables学习与记录</title>
+      <link>http://yeya24.github.io/post/iptables-study/</link>
+      <pubDate>Sun, 11 Nov 2018 16:30:03 +0800</pubDate>
+      
+      <guid>http://yeya24.github.io/post/iptables-study/</guid>
+      <description>iptables学习与记录 列出表中的规则 iptables -L 等同于 iptables &amp;ndash;list 列出指定table的所有规则，如果不使用-t 参数指定对应的表，则默认为filter表，</description>
+    </item>
+    
+  </channel>
+</rss>

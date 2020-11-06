@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>朝花夕拾</title>
+    <link>http://yeya24.github.io/</link>
+    <description>Recent content on 朝花夕拾</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 06 Nov 2020 15:24:27 -0500</lastBuildDate>
+    
+        <atom:link href="http://yeya24.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Posts</title>
+      <link>http://yeya24.github.io/post/</link>
+      <pubDate>Fri, 06 Nov 2020 15:24:27 -0500</pubDate>
+      
+      <guid>http://yeya24.github.io/post/</guid>
+      
+        <description></description>
+      
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>http://yeya24.github.io/about/</link>
+      <pubDate>Sun, 11 Nov 2018 16:42:45 +0800</pubDate>
+      
+      <guid>http://yeya24.github.io/about/</guid>
+      
+        <description>&lt;p&gt;大学生一枚~&lt;/p&gt;
+</description>
+      
+    </item>
+    
+  </channel>
+</rss>

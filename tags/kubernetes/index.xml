@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kubernetes on 朝花夕拾</title>
+    <link>http://yeya24.github.io/tags/kubernetes/</link>
+    <description>Recent content in Kubernetes on 朝花夕拾</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 06 Apr 2019 16:15:35 +0800</lastBuildDate><atom:link href="http://yeya24.github.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用kubeadm安装k8s 1.16.3</title>
+      <link>http://yeya24.github.io/post/install-k8s/</link>
+      <pubDate>Sat, 06 Apr 2019 16:15:35 +0800</pubDate>
+      
+      <guid>http://yeya24.github.io/post/install-k8s/</guid>
+      <description>至少使用2台节点，当然最好3台，每台资源达到4核8G，所使用的环境在Centos 7.5版本及以上 事先准备：给每台节点改主机名称，在k8s中需</description>
+    </item>
+    
+    <item>
+      <title>使用kind来快速部署k8s环境</title>
+      <link>http://yeya24.github.io/post/kind/</link>
+      <pubDate>Fri, 05 Apr 2019 10:23:15 +0800</pubDate>
+      
+      <guid>http://yeya24.github.io/post/kind/</guid>
+      <description>啥是kind kind 即 Kubernetes In Docker，顾名思义，就是将 k8s 所需要的所有组件，全部部署在一个docker容器中，是一套开箱即用的 k8s 环境搭建方案。使用</description>
+    </item>
+    
+  </channel>
+</rss>

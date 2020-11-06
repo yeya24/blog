@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Alertmanager on 朝花夕拾</title>
+    <link>http://yeya24.github.io/tags/alertmanager/</link>
+    <description>Recent content in Alertmanager on 朝花夕拾</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 24 Feb 2019 15:05:50 +0800</lastBuildDate><atom:link href="http://yeya24.github.io/tags/alertmanager/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Alertmanager的告警流程分析（一）</title>
+      <link>http://yeya24.github.io/post/am-1/</link>
+      <pubDate>Sun, 24 Feb 2019 15:05:50 +0800</pubDate>
+      
+      <guid>http://yeya24.github.io/post/am-1/</guid>
+      <description>这篇文章会从一些源代码的角度来分析alertmanager告警的这个流程，基于版本0.16.1。由于本人水平有限，分析可能有一些不到位的地方</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>P4语言介绍 - 朝花夕拾</title>
+  
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="yeya24" />
+  <meta name="description" content="前言：这篇文章参考自SDNLAB上zenhox的P4编程理论与实践——理论篇，以及杨泽卫、李呈老师的&amp;laquo;重构网络与SDN&amp;raqu" />
+
+  <meta name="keywords" content="network, docker, kubernetes, sdn" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.78.1" />
+
+
+<link rel="canonical" href="http://yeya24.github.io/post/p4/" />
+
+
+
+
+
+<link rel="icon" href="/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/sass/jane.min.af20b78e95c84de86b00a0242a4a77bd2601700e1b250edf27537d957ac0041d.css" integrity="sha256-ryC3jpXITehrAKAkKkp3vSYBcA4bJQ7fJ1N9lXrABB0=" media="screen" crossorigin="anonymous">
+
+
+
+
+
+<meta property="og:title" content="P4语言介绍" />
+<meta property="og:description" content="前言：这篇文章参考自SDNLAB上zenhox的P4编程理论与实践——理论篇，以及杨泽卫、李呈老师的&laquo;重构网络与SDN&raqu" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://yeya24.github.io/post/p4/" />
+<meta property="article:published_time" content="2019-02-25T10:24:05+08:00" />
+<meta property="article:modified_time" content="2019-02-25T10:24:05+08:00" />
+<meta itemprop="name" content="P4语言介绍">
+<meta itemprop="description" content="前言：这篇文章参考自SDNLAB上zenhox的P4编程理论与实践——理论篇，以及杨泽卫、李呈老师的&laquo;重构网络与SDN&raqu">
+<meta itemprop="datePublished" content="2019-02-25T10:24:05+08:00" />
+<meta itemprop="dateModified" content="2019-02-25T10:24:05+08:00" />
+<meta itemprop="wordCount" content="2861">
+
+
+
+<meta itemprop="keywords" content="Network,P4," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="P4语言介绍"/>
+<meta name="twitter:description" content="前言：这篇文章参考自SDNLAB上zenhox的P4编程理论与实践——理论篇，以及杨泽卫、李呈老师的&laquo;重构网络与SDN&raqu"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">yeya24</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="http://yeya24.github.io/">Home</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="http://yeya24.github.io/post/">Archives</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="http://yeya24.github.io/tags/">Tags</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="http://yeya24.github.io/categories/">Categories</a>
+          
+        
+      </li><li class="mobile-menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="http://yeya24.github.io/about/">About</a>
+          
+        
+      </li>
+    
+
+    
+  </ul>
+</nav>
+
+
+  
+    
+
+
+
+
+
+
+  <link rel="stylesheet" href="/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+  
+
+  
+
+  
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">
+    
+      yeya24
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="http://yeya24.github.io/">Home</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="http://yeya24.github.io/post/">Archives</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="http://yeya24.github.io/tags/">Tags</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="http://yeya24.github.io/categories/">Categories</a>
+          
+
+        
+
+      </li>
+    
+        <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="http://yeya24.github.io/about/">About</a>
+          
+
+        
+
+      </li>
+    
+
+    
+    
+
+    
+  </ul>
+</nav>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">P4语言介绍</h1>
+      
+      <div class="post-meta">
+        <time datetime="2019-02-25" class="post-time">
+          2019-02-25
+        </time>
+        <div class="post-category">
+            <a href="http://yeya24.github.io/categories/network/"> Network </a>
+            
+          </div>
+        
+
+        
+        
+
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Table of Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#数据平面可编程与p4">数据平面可编程与P4</a></li>
+    <li><a href="#p4的抽象转发模型">P4的抽象转发模型</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <p>前言：这篇文章参考自SDNLAB上zenhox的<a href="https://www.sdnlab.com/22466.html">P4编程理论与实践——理论篇</a>，以及杨泽卫、李呈老师的&laquo;重构网络与SDN&raquo;一书，在这里对他们表示能写出非常高质量的SDN文章也表示衷心的感谢。</p>
+<p>在SDN中，一个重要的概念就是数据平面和控制平面的分离。控制平面就是我们常说的控制器，如果采用openflow协议，数据平面就是支持openflow的交换机。控制平面与数据平面之间仅能通过openflow协议进行通讯。openflow协议有以下的特点：</p>
+<ul>
+<li>预先定义好的控制器与数据平面设备之间通信的报文格式</li>
+<li>openflow是一种狭义的南向协议，是协议相关的，数据平面和控制平面都需要实现该协议。</li>
+</ul>
+<p>虽然openflow为SDN奠定了基础，但在实际开发中，openflow还存在着比较大的局限。它无法做到协议不相关，由于必须遵循openflow协议来进行编程，而无法根据自己的需要进行额外扩展，很不灵活。openflow只能在已经固化的交换机数据处理逻辑上，通过流表、组表等指导数据流处理，却无法重新定义交换机处理数据的逻辑。此外，在openflow的版本迭代速度比较快，字段的变化也非常多。在openflow 1.0版本中仅支持12个匹配字段，1.3版本中支持40个匹配字段，到了1.5版本则可以支持45个匹配字段。随着版本的更迭需要对字段进行更改，如果是软件层面的控制器可以比较方便的修改，但是对于数据平面，特别是支持openflow的硬件交换机来说，每次修改协议都需要重新编写数据包的处理逻辑。可以说，openflow的这种可扩展性非常差的设计大大阻碍了openflow的推广和使用。</p>
+<h2 id="数据平面可编程与p4">数据平面可编程与P4</h2>
+<p>既然之前提到了openflow的弊端，虽然实现了控制平面的可编程，但在数据平面仍然是使用固定的openflow。于是，最好能够有一种方式能够做到协议无关，从而在数据平面能够自己定义数据包的处理逻辑。于是，P4语言应运而生。</p>
+<p>P4是一种协议无关的数据包处理编程语言，P4支持用户自定义匹配字段，协议解析过程和转发过程，从而能实现真正意义上的协议无关可编程网络数据平面。</p>
+<p>不过，P4与openflow的定位完全不同。openflow是一种南向协议，它是控制平面与数据平面沟通的桥梁。而P4则是一门数据平面的编程语言，它关注的是数据平面的开放性，并不涉及到控制平面。</p>
+<h2 id="p4的抽象转发模型">P4的抽象转发模型</h2>
+<p><img src="https://img1.sdnlab.com/wp-content/uploads/2018/10/v1Model.png" alt="V1Model"></p>
+<p>这是P4所提供的最简单易理解的编程结构，V1Model。从图上可以看出，数据包的处理过程像一条流水线一样，它由5个模块组成，分别是：</p>
+<ol>
+<li>Parser：解析器，对数据包根据预先定义好的格式进行解析，并提取头部的各个字段，在这里可能会根据不同的头部进行匹配。比如如果三层包头的协议字段是0x0800则是ip报文，如果是0x0806则是arp报文，则会进行不同的处理。</li>
+<li>Ingress：Ingress流水线部分，数据处理逻辑的入口。</li>
+<li>TM：Traffic Manager，在这里定义核心的处理逻辑，并且会对一些元数据进行更新。</li>
+<li>Egress：Egress流水线部分，数据处理逻辑的出口。</li>
+<li>Deparser：用于对数据包进行重组，因为数据包在处理过程中经历了分解和处理。所以最后转发的时候需要重组一下。</li>
+</ol>
+<p>P4为我们提供了上述抽象，我们就可以把所有的交换机的内部处理逻辑理解为上述的模型，每次数据包进入交换机，都会通过这些一条流水线。你要做的只是去定义流水线上的各个模块罢了。所以，按照上述模型，P4语言的代码结构如下:</p>
+<pre><code>#include &lt;core.p4&gt;
+#include &lt;v1model.p4&gt;
+
+const bit&lt;16&gt; TYPE_IPV4 = 0x800;
+
+/*************************************************************************
+*********************** H E A D E R S  ***********************************
+*************************************************************************/
+
+typedef bit&lt;9&gt;  egressSpec_t;
+typedef bit&lt;48&gt; macAddr_t;
+typedef bit&lt;32&gt; ip4Addr_t;
+
+/*定义二层数据包头*/
+header ethernet_t {
+    macAddr_t dstAddr;
+    macAddr_t srcAddr;
+    bit&lt;16&gt;   etherType;
+}
+
+/*定义ip数据包头*/
+header ipv4_t {
+    bit&lt;4&gt;    version;
+    bit&lt;4&gt;    ihl;
+    bit&lt;8&gt;    diffserv;
+    bit&lt;16&gt;   totalLen;
+    bit&lt;16&gt;   identification;
+    bit&lt;3&gt;    flags;
+    bit&lt;13&gt;   fragOffset;
+    bit&lt;8&gt;    ttl;
+    bit&lt;8&gt;    protocol;
+    bit&lt;16&gt;   hdrChecksum;
+    ip4Addr_t srcAddr;
+    ip4Addr_t dstAddr;
+}
+
+struct metadata {
+    /* empty */
+}
+
+/*定义了headers由二层头部与三层头部组成*/
+struct headers {
+    ethernet_t   ethernet;
+    ipv4_t       ipv4;
+}
+
+/*************************************************************************
+*********************** P A R S E R  ***********************************
+*************************************************************************/
+
+parser MyParser(packet_in packet,
+                out headers hdr,
+                inout metadata meta,
+                inout standard_metadata_t standard_metadata) {
+
+    state start {
+        transition parse_ethernet; //转移到 parse_ethernet状态
+    }
+
+    state parse_ethernet {
+        packet.extract(hdr.ethernet); //提取数据包头
+        transition select(hdr.ethernet.etherType) {
+            TYPE_IPV4: parse_ipv4; //转移到 parse_ipv4状态
+            default: accept; 
+        }
+    }
+
+    state parse_ipv4 {
+        packet.extract(hdr.ipv4);
+        transition accept; //根据 etherType, 转移到其他状态，直到转移到accept结束
+    }
+
+}
+
+/*************************************************************************
+************   C H E C K S U M    V E R I F I C A T I O N   *************
+*************************************************************************/
+/*校验和的计算可以空着*/
+control MyVerifyChecksum(inout headers hdr, inout metadata meta) {   
+    apply {  }
+}
+
+
+/*************************************************************************
+**************  I N G R E S S   P R O C E S S I N G   *******************
+*************************************************************************/
+
+control MyIngress(inout headers hdr,
+                  inout metadata meta,
+                  inout standard_metadata_t standard_metadata) {
+    /*定义了丢包的动作*/
+    action drop() {
+        mark_to_drop();
+    }
+    
+    /*定义了三层转发的动作*/
+    action ipv4_forward(macAddr_t dstAddr, egressSpec_t port) {
+        standard_metadata.egress_spec = port;
+        hdr.ethernet.srcAddr = hdr.ethernet.dstAddr;
+        hdr.ethernet.dstAddr = dstAddr;
+        hdr.ipv4.ttl = hdr.ipv4.ttl - 1;
+    }
+    
+    /*定义table ipv4_lpm*/
+    table ipv4_lpm {
+        key = {
+            hdr.ipv4.dstAddr: lpm;
+        }
+        actions = {
+            ipv4_forward;
+            drop;
+            NoAction;
+        }
+        size = 1024;
+        default_action = drop();
+    }
+    
+    //上述都是声明定义过程，这里是真正的数据处理逻辑
+    apply {
+        if (hdr.ipv4.isValid()) {
+            ipv4_lpm.apply();
+        }
+    }
+}
+
+/*************************************************************************
+****************  E G R E S S   P R O C E S S I N G   *******************
+*************************************************************************/
+
+control MyEgress(inout headers hdr,
+                 inout metadata meta,
+                 inout standard_metadata_t standard_metadata) {
+    apply {  }
+}
+
+/*************************************************************************
+*************   C H E C K S U M    C O M P U T A T I O N   **************
+*************************************************************************/
+/*校验和的计算部分，可以省略*/
+control MyComputeChecksum(inout headers  hdr, inout metadata meta) {
+     apply {
+	update_checksum(
+	    hdr.ipv4.isValid(),
+            { hdr.ipv4.version,
+	      hdr.ipv4.ihl,
+              hdr.ipv4.diffserv,
+              hdr.ipv4.totalLen,
+              hdr.ipv4.identification,
+              hdr.ipv4.flags,
+              hdr.ipv4.fragOffset,
+              hdr.ipv4.ttl,
+              hdr.ipv4.protocol,
+              hdr.ipv4.srcAddr,
+              hdr.ipv4.dstAddr },
+            hdr.ipv4.hdrChecksum,
+            HashAlgorithm.csum16);
+    }
+}
+
+/*************************************************************************
+***********************  D E P A R S E R  *******************************
+*************************************************************************/
+/*数据包的重组阶段*/
+control MyDeparser(packet_out packet, in headers hdr) {
+    apply {
+        packet.emit(hdr.ethernet);
+        packet.emit(hdr.ipv4);
+    }
+}
+
+/*************************************************************************
+***********************  S W I T C H  *******************************
+*************************************************************************/
+
+V1Switch(
+MyParser(),
+MyVerifyChecksum(),
+MyIngress(),
+MyEgress(),
+MyComputeChecksum(),
+MyDeparser()
+) main;
+</code></pre><p>这个简单的P4语言程序定义了一个三层数据包的处理流程。该程序的主函数入口在最下方的main函数，在这里定义了一条完整的数据处理流水线。先是定义Parser，后计算校验和，再经过Ingress和Egress对数据包进行处理，之后计算校验和，再将数据包重组就完成了一次数据转发。</p>
+<p>P4程序的核心部分是数据头部的定义以及Ingress中对数据包的处理。在数据头部的定义中，可以很明确看到定义了二层以太网包头以及IP包头这两种数据格式。当然如果你需要实现更加复杂的应用，你可以定义更多的数据包头例如MPLS包头，TCP包头等，甚至你也可以定义openflow的包头，从而在P4程序中实现openflow的数据平面。</p>
+<p>Ingress中的数据包处理是P4的核心部分。示例程序中定义了表ipv4_lpm。在table中可以定义动作，ipv4_lpm表中的动作包括三层转发（ipv4_forward），丢包（drop）和NoAction，默认动作则是简单的丢包。ipv4_forward这个action的实现逻辑也非常清晰，首先修改元数据（metadata），将egress的端口设置为出端口。然后，将二层的源MAC地址修改为当前MAC地址，将目的MAC修改为需要发送出去的端口的MAC地址，之后将ttl减一，这个逻辑也与我们所知道的三层转发过程一致。</p>
+<p>P4语言语法简单，程序结构也比较清晰，非常容易上手。一旦熟悉P4程序的工作模式，将能够非常方便的上手开发。在网上也有一些比较不错的P4学习资源，比如P4官方的示例教程，地址是<a href="https://github.com/p4lang/tutorials">tutorials</a>。里面的应用包括了基于P4实现的tunnel、负载均衡、源路由、ecn等等。</p>
+<p>P4语言目前仍然保持着良好的发展势头，且越来越火爆。Barefoot公司推出的基于P4语言的芯片 Tofino 已经开始逐渐在市场上使用，常见于一些复杂的云网络中。基于数据平面可编程思想的P4，正在推动着SDN领域走的越来越远。</p>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">yeya24</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+      2019-02-25
+      
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="http://yeya24.github.io/tags/network/">Network</a>
+          <a href="http://yeya24.github.io/tags/p4/">P4</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/influxdb_ha/">
+            
+            <i class="iconfont">
+              <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M691.908486 949.511495l75.369571-89.491197c10.963703-12.998035 10.285251-32.864502-1.499144-44.378743L479.499795 515.267417 757.434875 204.940602c11.338233-12.190647 11.035334-32.285311-0.638543-44.850487l-80.46666-86.564541c-11.680017-12.583596-30.356378-12.893658-41.662889-0.716314L257.233596 494.235404c-11.332093 12.183484-11.041474 32.266891 0.657986 44.844348l80.46666 86.564541c1.772366 1.910513 3.706415 3.533476 5.750981 4.877077l306.620399 321.703933C662.505829 963.726242 680.945807 962.528973 691.908486 949.511495z"></path>
+</svg>
+
+            </i>
+            <span class="prev-text nav-default">influxdb的高可用方案</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+          <a class="next" href="/post/am-1/">
+            <span class="next-text nav-default">Alertmanager的告警流程分析（一）</span>
+            <span class="prev-text nav-mobile">Next</span>
+            
+            <i class="iconfont">
+              <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
+</svg>
+
+            </i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+
+  
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+    
+
+  
+
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="icon-links">
+  
+  
+    <a href="mailto:yb532204897@gmail.com" rel="me noopener" class="iconfont"
+      title="email" >
+      <svg class="icon" viewBox="0 0 1451 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36" height="36">
+  <path d="M664.781909 681.472759 0 97.881301C0 3.997201 71.046997 0 71.046997 0L474.477909 0 961.649408 0 1361.641813 0C1361.641813 0 1432.688811 3.997201 1432.688811 97.881301L771.345323 681.472759C771.345323 681.472759 764.482731 685.154773 753.594283 688.65053L753.594283 688.664858C741.602731 693.493018 729.424896 695.068979 718.077952 694.839748 706.731093 695.068979 694.553173 693.493018 682.561621 688.664858L682.561621 688.65053C671.644501 685.140446 664.781909 681.472759 664.781909 681.472759L664.781909 681.472759ZM718.063616 811.603883C693.779541 811.016482 658.879232 802.205449 619.10784 767.734955 542.989056 701.759633 0 212.052267 0 212.052267L0 942.809523C0 942.809523 0 1024 83.726336 1024L682.532949 1024 753.579947 1024 1348.948139 1024C1432.688811 1024 1432.688811 942.809523 1432.688811 942.809523L1432.688811 212.052267C1432.688811 212.052267 893.138176 701.759633 817.019477 767.734955 777.248 802.205449 742.347691 811.03081 718.063616 811.603883L718.063616 811.603883Z"></path>
+</svg>
+
+    </a>
+  
+    <a href="https://github.com/yeya24" rel="me noopener" class="iconfont"
+      title="github"  target="_blank"
+      >
+      <svg class="icon" style="" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="36" height="36">
+  <path d="M512 12.672c-282.88 0-512 229.248-512 512 0 226.261333 146.688 418.133333 350.08 485.76 25.6 4.821333 34.986667-11.008 34.986667-24.618667 0-12.16-0.426667-44.373333-0.64-87.04-142.421333 30.890667-172.458667-68.693333-172.458667-68.693333C188.672 770.986667 155.008 755.2 155.008 755.2c-46.378667-31.744 3.584-31.104 3.584-31.104 51.413333 3.584 78.421333 52.736 78.421333 52.736 45.653333 78.293333 119.850667 55.68 149.12 42.581333 4.608-33.109333 17.792-55.68 32.426667-68.48-113.706667-12.8-233.216-56.832-233.216-253.013333 0-55.893333 19.84-101.546667 52.693333-137.386667-5.76-12.928-23.04-64.981333 4.48-135.509333 0 0 42.88-13.738667 140.8 52.48 40.96-11.392 84.48-17.024 128-17.28 43.52 0.256 87.04 5.888 128 17.28 97.28-66.218667 140.16-52.48 140.16-52.48 27.52 70.528 10.24 122.581333 5.12 135.509333 32.64 35.84 52.48 81.493333 52.48 137.386667 0 196.693333-119.68 240-233.6 252.586667 17.92 15.36 34.56 46.762667 34.56 94.72 0 68.522667-0.64 123.562667-0.64 140.202666 0 13.44 8.96 29.44 35.2 24.32C877.44 942.592 1024 750.592 1024 524.672c0-282.752-229.248-512-512-512"></path>
+</svg>
+
+    </a>
+
+
+<a href="http://yeya24.github.io/index.xml" rel="noopener alternate" type="application/rss&#43;xml"
+    class="iconfont" title="rss" target="_blank">
+    <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="30" height="30">
+  <path d="M819.157333 1024C819.157333 574.592 449.408 204.8 0 204.8V0c561.706667 0 1024 462.293333 1024 1024h-204.842667zM140.416 743.04a140.8 140.8 0 0 1 140.501333 140.586667A140.928 140.928 0 0 1 140.074667 1024C62.72 1024 0 961.109333 0 883.626667s62.933333-140.544 140.416-140.586667zM678.784 1024h-199.04c0-263.210667-216.533333-479.786667-479.744-479.786667V345.173333c372.352 0 678.784 306.517333 678.784 678.826667z"></path>
+</svg>
+
+  </a>
+   
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    
+      2018 -
+    2020
+    <span class="heart">
+      
+      <i class="iconfont">
+        <svg class="icon" viewBox="0 0 1025 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="14" height="14">
+  <path d="M1000.1 247.9c-15.5-37.3-37.6-70.6-65.7-98.9-54.4-54.8-125.8-85-201-85-85.7 0-166 39-221.4 107.4C456.6 103 376.3 64 290.6 64c-75.1 0-146.5 30.4-201.1 85.6-28.2 28.5-50.4 61.9-65.8 99.3-16 38.8-24 79.9-23.6 122.2 0.7 91.7 40.1 177.2 108.1 234.8 3.1 2.6 6 5.1 8.9 7.8 14.9 13.4 58 52.8 112.6 102.7 93.5 85.5 209.9 191.9 257.5 234.2 7 6.1 15.8 9.5 24.9 9.5 9.2 0 18.1-3.4 24.9-9.5 34.5-30.7 105.8-95.9 181.4-165 74.2-67.8 150.9-138 195.8-178.2 69.5-57.9 109.6-144.4 109.9-237.3 0.1-42.5-8-83.6-24-122.2z"
+   fill="#8a8a8a"></path>
+</svg>
+
+      </i>
+    </span><span class="author">
+        yeya24
+        
+      </span></span>
+
+  
+  
+
+  
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont">
+        
+        <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="35" height="35">
+  <path d="M510.866688 227.694839 95.449397 629.218702l235.761562 0-2.057869 328.796468 362.40389 0L691.55698 628.188232l241.942331-3.089361L510.866688 227.694839zM63.840492 63.962777l894.052392 0 0 131.813095L63.840492 195.775872 63.840492 63.962777 63.840492 63.962777zM63.840492 63.962777"></path>
+</svg>
+
+      </i>
+    </div>
+  </div>
+  
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+
+
+
+
+<script type="text/javascript" src="/js/main.638251f4230630f0335d8c6748e53a96f94b72670920b60c09a56fdc8bece214.js" integrity="sha256-Y4JR9CMGMPAzXYxnSOU6lvlLcmcJILYMCaVv3Ivs4hQ=" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <script type="text/javascript" src="/js/load-photoswipe.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
