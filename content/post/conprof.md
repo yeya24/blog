@@ -33,7 +33,7 @@ categories:
 
 
 
-![trace-log](/home/yeya24/hub/blog/static/img/conprof/tempo1.png)
+![trace-log](/img/conprof/tempo1.png)
 
 
 
@@ -74,7 +74,7 @@ $ curl -g 'http://localhost:9090/api/v1/query_exemplar?query=test_exemplar_metri
 
 
 
-![trace-metrics](/home/yeya24/hub/blog/static/img/conprof/tempo2.png)
+![trace-metrics](/img/conprof/tempo2.png)
 
 
 
@@ -110,7 +110,7 @@ Store 就是一个 gRPC API 封装起来的 TSDB。Conprof 的 TSDB 是一个 fo
 
 
 
-![conprof](/home/yeya24/hub/blog/static/img/conprof/conprof.png)
+![conprof](/img/conprof/conprof.png)
 
 
 
