@@ -1,5 +1,5 @@
 ---
-title: "Conprof: Like Prometheus, but for profiles"
+title: "聊聊 Conprof 和可观测性"
 date: 2020-11-06T15:24:27-05:00
 draft: false 
 description: ""
