@@ -9,7 +9,7 @@ categories:
 - "Observability"
 ---
 
- [Google-Wide Profiling: A Continuous Profiling Infrastructure for Data Centers](https://research.google/pubs/pub36575/) 论文主要介绍了 Google 内部的 GWP 系统。GWP 能够持续地对跨数据中心的基础设施进行 profilling，获取包括了栈调用，硬件事件，堆 profile，内核事件等等信息，并进行后续的数据分析。受这篇论文影响，Conprof 是一个对应用程序进行持续 profilling 的系统。虽然目前还不算成熟，Conprof 已经在我们组生产环境的集群上稳定运行了几个月了，并且能在 debug 线上集群问题方面提供非常大的帮助。 
+ [Google-Wide Profiling: A Continuous Profiling Infrastructure for Data Centers](https://research.google/pubs/pub36575/) 论文介绍了 Google 内部的 Profilling 系统，简称 GWP。GWP 能够持续地对跨数据中心的基础设施进行 profilling，获取包括了栈调用，硬件事件，堆 profile，内核事件等等信息，并进行后续的数据分析。受这篇论文影响，Conprof 是一个对应用程序进行持续 profilling 的系统。虽然目前还不算成熟，Conprof 已经在我们组生产环境的集群上稳定运行了几个月了，并且能在 debug 线上集群问题方面提供非常大的帮助。 
 
 
 
@@ -59,7 +59,7 @@ $ curl -g 'http://localhost:9090/api/v1/query_exemplar?query=test_exemplar_metri
                         "traceID": "EpTxMJ40fUus7aGY"
                     },
                     "value": 6,
-					"timestamp": 1600096945479,
+                    "timestamp": 1600096945479,
                     "hasTimestamp": true
                 }
             ]
@@ -141,3 +141,6 @@ Profilling 和 Tracing 系统其实很类似。我们可以使用 profile 和 tr
 
 
 
+# 联系作者
+
+由于本人水平有限，有错误欢迎大家指出。如果你对于Observability感兴趣，或者是你觉得这篇文章对你有帮助，你都可以联系我。我的微信是 eWJfeGExNAo=，你也可以在 [Github](https://github.com/yeya24) 上找到我。
