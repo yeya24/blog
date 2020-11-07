@@ -114,6 +114,10 @@ Store 就是一个 gRPC API 封装起来的 TSDB。Conprof 的 TSDB 是一个 fo
 
 
 
+![pprof](/img/conprof/pprof.png)
+
+
+
 不过目前来说这个 UI 来处于非常初级的阶段，而且暂时没办法与其他指标进行集成。如果想要将 Conprof 与 Grafana 更好的集成，可以看看这个为 Grafana 实现的 Conprof 数据源，用来在 Grafana上通过 annotations 来展示 profiles https://github.com/yeya24/conprof-datasource 。
 
 
